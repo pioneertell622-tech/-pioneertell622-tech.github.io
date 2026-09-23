@@ -127,7 +127,7 @@ textarea{min-height:90px;resize:vertical}
         <button id="enBtn" onclick="setLang('en')">EN</button>
       </div>
       <a class="telegram-link" href="https://t.me/magrovskijshop" target="_blank" rel="noopener">Telegram →</a>
-      <a class="kick-link" id="kickTop" href="#" target="_blank" rel="noopener">KICK ↗</a>
+      <a class="kick-link" id="kickTop" href="https://kick.com/magrovskij" target="_blank" rel="noopener">KICK ↗</a>
       <button class="cart-btn" onclick="openCart()">🛒 <span data-i18n="cart">Корзина</span><span class="count" id="count">0</span></button>
     </div>
   </div>
@@ -193,6 +193,7 @@ textarea{min-height:90px;resize:vertical}
       <ul>
         <li data-i18n="cdek">СДЭК</li>
         <li data-i18n="post">Почта России</li>
+         <li data-i18n="post">5Post</li>
         <li data-i18n="shipTime">Ориентировочно 7–14 дней</li>
       </ul>
     </div>
@@ -246,6 +247,7 @@ textarea{min-height:90px;resize:vertical}
         <select id="deliveryMethod">
           <option value="СДЭК">СДЭК</option>
           <option value="Почта России">Почта России</option>
+           <option value="5Post">5Post</option>
         </select>
       </label>
       <label><span data-i18n="comment">Комментарий</span><textarea id="comment" placeholder="Размер, цвет и другие пожелания"></textarea></label>
@@ -263,7 +265,7 @@ textarea{min-height:90px;resize:vertical}
    Если у тебя другой Telegram или Kick username,
    поменяй только эти две строки.
 =========================================== */
-const TELEGRAM_USERNAME = "magrovskijshop";
+const TELEGRAM_USERNAME = "magrovskijshoop";
 const KICK_USERNAME = "magrovskij";
 
 const products = {
@@ -331,9 +333,9 @@ function cartCount(){return cart.reduce((s,i)=>s+i.qty,0)}
 
 function productImage(id){
   const images = {
-    jordan:"https://www.sneakers.fr/wp-content/uploads/2023/07/xair-jordan-4-red-cement-av.jpg.pagespeed.ic.NZ-V1d1NgZ.jpg",
-    champion:"https://cdn.ssactivewear.com/Images/Color/30416_fl.jpg",
-    puma:"https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/311390/01/mod01/fnd/PNA/fmt/png/PUMA-x-LAMELO-BALL-MB.03-Mama-Men%27s-Basketball-Shoes"
+    jordan:"https://yandex.ru/search/?clid=11528080&text=Jordan+4+Vintage&l10n=ru&lr=62",
+    champion:"https://static.wixstatic.com/media/d0b1c7_0b183bbbb27f43faa8e18510de5206e7~mv2.jpg/v1/fill/w_600,h_866,al_c,q_85,enc_avif,quality_auto/d0b1c7_0b183bbbb27f43faa8e18510de5206e7~mv2.jpg",
+    puma:"https://img-edg.joomcdn.net/35768d198aaa50e8aa5aa7b502e2697d44a180c3_original.jpeg"
   };
   return images[id] || "";
 }
