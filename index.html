@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#202020">
+<meta name="description" content="MAGROVSKIJ SHOP — каталог, корзина и заказ через Telegram.">
+<title>MAGROVSKIJ SHOP</title>
+<style>
+:root{
+  --bg:#222;
+  --panel:#2b2b2b;
+  --panel2:#1c1c1c;
+  --text:#f5f5f5;
+  --muted:#b9b9b9;
+  --lime:#eaff72;
+  --pink:#ff38b8;
+  --border:#5e5e5e;
+  --danger:#ff6d9f;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 50% -10%,#383838 0,#222 35%,#1d1d1d 100%);color:var(--text);font-family:Inter,Arial,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.container{width:min(1120px,calc(100% - 28px));margin:auto}
+header{position:sticky;top:0;z-index:50;background:rgba(28,28,28,.92);backdrop-filter:blur(14px);border-bottom:1px solid #5a5a5a}
+.nav{min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}
+.avatar{width:48px;height:48px;border-radius:14px;object-fit:cover;border:1px solid #777;box-shadow:0 0 22px rgba(234,255,114,.08)}
+.logo{font-weight:1000;letter-spacing:-1px;font-size:20px;color:var(--lime)}
+.logo span{color:var(--pink)}
+.actions{display:flex;align-items:center;gap:10px}
+.lang{display:flex;padding:3px;background:#151515;border:1px solid #555;border-radius:11px}
+.lang button{border:0;background:transparent;color:#aaa;padding:7px 9px;border-radius:8px;font-size:11px;font-weight:800}
+.lang button.active{background:var(--lime);color:#202020}
+.telegram-link,.kick-link,.cart-btn{border:0;border-radius:11px;padding:11px 14px;font-weight:800;font-size:13px}
+.telegram-link{background:transparent;color:var(--lime)}
+.kick-link{background:#151515;border:1px solid #666;color:#fff}
+.cart-btn{position:relative;background:var(--lime);color:#202020}
+.count{position:absolute;right:-7px;top:-8px;min-width:22px;height:22px;padding:0 5px;border-radius:50%;background:var(--pink);color:#fff;display:grid;place-items:center;font-size:11px}
+.hero{padding:46px 0 28px}
+.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center}
+.kicker{color:var(--lime);font-weight:900;font-size:12px;letter-spacing:2px}
+h1{font-size:clamp(36px,7vw,66px);line-height:.96;margin:10px 0 16px;letter-spacing:-3px}
+h1 span{color:var(--pink)}
+.hero p{color:var(--muted);max-width:620px;line-height:1.6}
+.hero-card{border:1px solid var(--border);border-radius:24px;padding:24px;background:linear-gradient(145deg,#303030,#222);box-shadow:0 20px 70px rgba(0,0,0,.2)}
+.hero-card img{width:100%;border-radius:18px;display:block}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:30px 0 18px}
+h2{font-size:30px;margin:0}
+.muted{color:var(--muted);font-size:13px}
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:.2s}
+.card:hover{transform:translateY(-4px);border-color:var(--lime)}
+.product-img{height:245px;background:#eaff72;overflow:hidden}
+.product-img img{width:100%;height:100%;object-fit:cover;display:block}
+.ph{width:100%;height:100%;background:radial-gradient(circle at 72% 24%,rgba(255,255,255,.32),transparent 24%),linear-gradient(135deg,#efff8b,#d8ea64)}
+.ph.pink{background:radial-gradient(circle at 50% 45%,#ff4ac0,#9a155f 72%,#41142f)}
+.ph.dark{background:linear-gradient(135deg,#424242,#141414)}
+.card-body{padding:16px}
+.cat{font-size:10px;font-weight:900;color:#ddd;letter-spacing:1px}
+.name{font-size:19px;font-weight:900;margin:7px 0}
+.price{font-size:17px;font-weight:900;color:var(--lime)}
+.desc{color:#c6c6c6;font-size:12px;line-height:1.45;margin:8px 0 12px;min-height:35px}
+.add{width:100%;border:0;border-radius:12px;padding:12px;background:var(--lime);color:#222;font-weight:900}
+.add:hover,.primary:hover{background:var(--pink);color:#fff}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:48px 0}
+.info{border:1px solid var(--border);border-radius:20px;padding:22px;background:var(--panel)}
+.info h3{margin:0 0 10px;color:var(--lime)}
+.info p,.info li{color:#ddd;font-size:13px;line-height:1.65}
+.kick{margin:18px 0 50px;border:1px solid var(--border);border-radius:24px;padding:25px;background:linear-gradient(135deg,#2e2e2e,#1e1e1e);display:flex;align-items:center;justify-content:space-between;gap:24px}
+.kick-badge{display:inline-block;background:#53fc18;color:#111;font-weight:1000;padding:7px 10px;border-radius:8px;font-size:11px}
+.kick h2{margin:8px 0;font-size:26px}
+.kick p{color:var(--muted);line-height:1.6;margin:0 0 14px}
+footer{border-top:1px solid #4e4e4e;padding:26px 0;color:#888;font-size:12px;text-align:center}
+
+/* overlays */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.76);display:none;z-index:100;align-items:center;justify-content:center;padding:16px}
+.overlay.open{display:flex}
+.drawer{position:absolute;right:0;top:0;width:min(470px,100%);height:100%;background:#292929;border-left:1px solid #666;padding:22px;overflow:auto}
+.modal{position:relative;width:min(520px,100%);max-height:92vh;overflow:auto;background:#292929;border:1px solid #777;border-radius:22px;padding:24px}
+.close{position:absolute;right:14px;top:9px;border:0;background:transparent;color:#fff;font-size:30px}
+.cart-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.cart-item{display:grid;grid-template-columns:70px 1fr auto;gap:12px;padding:14px 0;border-bottom:1px solid #505050}
+.cart-thumb{width:70px;height:70px;border-radius:11px;overflow:hidden;background:var(--lime)}
+.cart-thumb img{width:100%;height:100%;object-fit:cover}
+.item-name{font-weight:900}.item-price{color:var(--lime);font-size:13px;margin-top:4px}
+.qty{display:flex;align-items:center;gap:7px;margin-top:9px}
+.qty button{width:27px;height:27px;border:0;border-radius:7px;background:var(--lime);font-weight:900}
+.remove{border:0;background:transparent;color:var(--danger);font-size:11px;margin-top:6px;padding:0}
+.item-total{font-weight:900;color:#fff;font-size:13px}
+.cart-foot{border-top:1px solid #555;margin-top:20px;padding-top:18px}
+.total-row{display:flex;justify-content:space-between;font-size:20px;font-weight:900;margin-bottom:14px}
+.total-row strong{color:var(--lime)}
+.primary{width:100%;border:0;border-radius:12px;background:var(--lime);color:#222;padding:14px;font-weight:900}
+.empty{text-align:center;color:#999;padding:55px 10px}
+form{display:grid;gap:13px}
+label{display:grid;gap:6px;color:#ddd;font-size:12px;font-weight:800}
+input,select,textarea{width:100%;background:#1d1d1d;color:#fff;border:1px solid #5d5d5d;border-radius:11px;padding:12px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--lime)}
+textarea{min-height:90px;resize:vertical}
+.summary{display:flex;justify-content:space-between;background:#1d1d1d;border-radius:12px;padding:14px;font-size:13px}
+.summary strong{color:var(--lime)}
+.notice{border:1px solid #555;background:#202020;border-radius:12px;padding:12px;color:#bbb;font-size:12px;line-height:1.5}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#eaff72;color:#222;padding:12px 16px;border-radius:12px;font-weight:900;font-size:13px;z-index:300;transition:.25s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.products{grid-template-columns:1fr 1fr}.info-grid{grid-template-columns:1fr}.kick{flex-direction:column;align-items:flex-start}}
+@media(max-width:600px){.nav{min-height:72px}.logo{font-size:16px}.avatar{width:40px;height:40px}.telegram-link,.kick-link{display:none}.products{grid-template-columns:1fr}.hero{padding-top:30px}.hero-card{display:none}.section-head{align-items:flex-start;flex-direction:column}.drawer{width:100%}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="#">
+      <img class="avatar" src="avatar.png" alt="MAGROVSKIJ SHOP">
+      <div class="logo">MAGROVSKIJ<span>SHOP</span></div>
+    </a>
+    <div class="actions">
+      <div class="lang">
+        <button id="ruBtn" onclick="setLang('ru')">RU</button>
+        <button id="enBtn" onclick="setLang('en')">EN</button>
+      </div>
+      <a class="telegram-link" href="https://t.me/magrovskijshop" target="_blank" rel="noopener">Telegram →</a>
+      <a class="kick-link" id="kickTop" href="#" target="_blank" rel="noopener">KICK ↗</a>
+      <button class="cart-btn" onclick="openCart()">🛒 <span data-i18n="cart">Корзина</span><span class="count" id="count">0</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker" data-i18n="kicker">STREETWEAR • SNEAKERS • STYLE</div>
+        <h1>MAGROVSKIJ<br><span>SHOP</span></h1>
+        <p data-i18n="heroText">Каталог вещей с заказом через Telegram. Выбирай товар, добавляй в корзину и отправляй готовый заказ одним нажатием.</p>
+      </div>
+      <div class="hero-card"><img src="avatar.png" alt="MAGROVSKIJ SHOP"></div>
+    </div>
+  </section>
+
+  <section id="catalog">
+    <div class="section-head">
+      <h2 data-i18n="catalog">Каталог</h2>
+      <div class="muted" data-i18n="deliveryShort">Доставка 7–14 дней</div>
+    </div>
+
+    <div class="products">
+      <article class="card">
+        <div class="product-img"><div class="ph"></div></div>
+        <div class="card-body">
+          <div class="cat">SNEAKERS</div>
+          <div class="name">Jordan 4 Vintage</div>
+          <div class="price">13 000 ₽</div>
+          <div class="desc" data-i18n="jordanDesc">Размеры 34,5–43,5. Цена зависит от размера.</div>
+          <button class="add" onclick="addToCart('jordan','Jordan 4 Vintage',13000)" data-i18n="add">В корзину</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="product-img"><div class="ph"></div></div>
+        <div class="card-body">
+          <div class="cat">T-SHIRT</div>
+          <div class="name">Champion T-Shirt</div>
+          <div class="price">3 400 ₽</div>
+          <div class="desc" data-i18n="champDesc">Американская версия. Размер уточняется при заказе.</div>
+          <button class="add" onclick="addToCart('champion','Champion T-Shirt',3400)" data-i18n="add">В корзину</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="product-img"><div class="ph pink"></div></div>
+        <div class="card-body">
+          <div class="cat">SNEAKERS</div>
+          <div class="name">LaMelo Ball x Puma</div>
+          <div class="price">18 000 ₽</div>
+          <div class="desc" data-i18n="pumaDesc">Розовая версия. Размер и наличие уточняются.</div>
+          <button class="add" onclick="addToCart('puma','LaMelo Ball x Puma',18000)" data-i18n="add">В корзину</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="info-grid">
+    <div class="info">
+      <h3 data-i18n="shippingTitle">📦 Доставка</h3>
+      <ul>
+        <li data-i18n="cdek">СДЭК</li>
+        <li data-i18n="post">Почта России</li>
+        <li data-i18n="shipTime">Ориентировочно 7–14 дней</li>
+      </ul>
+    </div>
+    <div class="info">
+      <h3 data-i18n="orderTitle">💬 Как заказать</h3>
+      <p data-i18n="orderText">Добавь товары в корзину, укажи свои данные и нажми «Оформить заказ». Telegram откроется с аккуратным готовым сообщением.</p>
+    </div>
+  </section>
+
+  <section class="kick">
+    <div>
+      <span class="kick-badge">KICK</span>
+      <h2 data-i18n="kickTitle">Скоро будут стримы 🔥</h2>
+      <p data-i18n="kickText">Классные стримы и новые идеи уже в планах. Нужно немного подождать — скоро увидимся на Kick.</p>
+      <a class="kick-link" id="kickMain" href="#" target="_blank" rel="noopener" data-i18n="watchKick">Открыть профиль Kick ↗</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  © <span id="year"></span> MAGROVSKIJ SHOP
+</footer>
+
+<!-- CART -->
+<div class="overlay" id="cartOverlay" onclick="overlayClose(event,'cartOverlay')">
+  <aside class="drawer" onclick="event.stopPropagation()">
+    <div class="cart-head">
+      <h2 data-i18n="cart">Корзина</h2>
+      <button class="close" onclick="closeOverlay('cartOverlay')">×</button>
+    </div>
+    <div id="cartItems"></div>
+    <div class="cart-foot">
+      <div class="total-row"><span data-i18n="total">Итого</span><strong id="total">0 ₽</strong></div>
+      <button class="primary" onclick="startCheckout()" data-i18n="checkout">Оформить заказ</button>
+    </div>
+  </aside>
+</div>
+
+<!-- CHECKOUT -->
+<div class="overlay" id="checkoutOverlay" onclick="overlayClose(event,'checkoutOverlay')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="close" onclick="closeOverlay('checkoutOverlay')">×</button>
+    <h2 data-i18n="checkoutTitle">Оформление заказа</h2>
+    <p class="muted" data-i18n="checkoutText">Заполни данные. После отправки откроется Telegram с готовым сообщением.</p>
+    <br>
+    <form id="checkoutForm">
+      <label><span data-i18n="name">Имя</span><input id="customerName" required autocomplete="name" placeholder="Ваше имя"></label>
+      <label><span data-i18n="tg">Telegram</span><input id="customerTelegram" required placeholder="@username"></label>
+      <label><span data-i18n="city">Город</span><input id="customerCity" required autocomplete="address-level2" placeholder="Ваш город"></label>
+      <label><span data-i18n="delivery">Способ доставки</span>
+        <select id="deliveryMethod">
+          <option value="СДЭК">СДЭК</option>
+          <option value="Почта России">Почта России</option>
+        </select>
+      </label>
+      <label><span data-i18n="comment">Комментарий</span><textarea id="comment" placeholder="Размер, цвет и другие пожелания"></textarea></label>
+      <div class="summary"><span><span data-i18n="items">Товаров</span>: <b id="checkoutCount">0</b></span><span><span data-i18n="total">Итого</span>: <strong id="checkoutTotal">0 ₽</strong></span></div>
+      <div class="notice" data-i18n="tgNotice">После нажатия откроется Telegram. Сообщение будет заполнено автоматически — останется только нажать «Отправить».</div>
+      <button class="primary" type="submit" data-i18n="goTelegram">Перейти в Telegram →</button>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= CONFIG =================
+   Если у тебя другой Telegram или Kick username,
+   поменяй только эти две строки.
+=========================================== */
+const TELEGRAM_USERNAME = "magrovskijshop";
+const KICK_USERNAME = "YOUR_KICK_USERNAME";
+
+const products = {
+  jordan:{name:"Jordan 4 Vintage",price:13000},
+  champion:{name:"Champion T-Shirt",price:3400},
+  puma:{name:"LaMelo Ball x Puma",price:18000}
+};
+
+const tr = {
+ ru:{
+  cart:"Корзина",kicker:"STREETWEAR • SNEAKERS • STYLE",heroText:"Каталог вещей с заказом через Telegram. Выбирай товар, добавляй в корзину и отправляй готовый заказ одним нажатием.",
+  catalog:"Каталог",deliveryShort:"Доставка 7–14 дней",jordanDesc:"Размеры 34,5–43,5. Цена зависит от размера.",champDesc:"Американская версия. Размер уточняется при заказе.",pumaDesc:"Розовая версия. Размер и наличие уточняются.",
+  add:"В корзину",shippingTitle:"📦 Доставка",cdek:"СДЭК",post:"Почта России",shipTime:"Ориентировочно 7–14 дней",
+  orderTitle:"💬 Как заказать",orderText:"Добавь товары в корзину, укажи свои данные и нажми «Оформить заказ». Telegram откроется с аккуратным готовым сообщением.",
+  kickTitle:"Скоро будут стримы 🔥",kickText:"Классные стримы и новые идеи уже в планах. Нужно немного подождать — скоро увидимся на Kick.",watchKick:"Открыть профиль Kick ↗",
+  total:"Итого",checkout:"Оформить заказ",checkoutTitle:"Оформление заказа",checkoutText:"Заполни данные. После отправки откроется Telegram с готовым сообщением.",
+  name:"Имя",tg:"Telegram",city:"Город",delivery:"Способ доставки",comment:"Комментарий",items:"Товаров",goTelegram:"Перейти в Telegram →",
+  tgNotice:"После нажатия откроется Telegram. Сообщение будет заполнено автоматически — останется только нажать «Отправить».",
+  empty:"🛒 Корзина пока пустая",remove:"Удалить",added:"добавлен в корзину",emptyAlert:"Корзина пустая!"
+ },
+ en:{
+  cart:"Cart",kicker:"STREETWEAR • SNEAKERS • STYLE",heroText:"Shop the catalog and order through Telegram. Choose a product, add it to your cart and send a ready order in one click.",
+  catalog:"Catalog",deliveryShort:"Delivery 7–14 days",jordanDesc:"Sizes 34.5–43.5. Price depends on size.",champDesc:"US version. Size is confirmed when ordering.",pumaDesc:"Pink version. Size and availability are confirmed when ordering.",
+  add:"Add to cart",shippingTitle:"📦 Delivery",cdek:"CDEK",post:"Russian Post",shipTime:"Estimated 7–14 days",
+  orderTitle:"💬 How to order",orderText:"Add products to your cart, enter your details and click “Checkout”. Telegram will open with a clean ready-to-send message.",
+  kickTitle:"Streams are coming soon 🔥",kickText:"Cool streams and new ideas are already planned. Please wait a little — see you soon on Kick.",watchKick:"Open Kick profile ↗",
+  total:"Total",checkout:"Checkout",checkoutTitle:"Checkout",checkoutText:"Fill in your details. Telegram will open with a ready order message.",
+  name:"Name",tg:"Telegram",city:"City",delivery:"Delivery method",comment:"Comment",items:"Items",goTelegram:"Continue to Telegram →",
+  tgNotice:"Telegram will open after you click. The message will be filled in automatically — you only need to press Send.",
+  empty:"🛒 Your cart is empty",remove:"Remove",added:"added to cart",emptyAlert:"Your cart is empty!"
+ }
+};
+
+let lang = localStorage.getItem("magrovskij_lang") || "ru";
+let cart = JSON.parse(localStorage.getItem("magrovskij_cart") || "[]");
+
+function t(k){return tr[lang][k] || k}
+function save(){localStorage.setItem("magrovskij_cart",JSON.stringify(cart))}
+function money(n){return new Intl.NumberFormat(lang==="ru"?"ru-RU":"en-US").format(n)+" ₽"}
+
+function setLang(next){
+  lang=next; localStorage.setItem("magrovskij_lang",lang);
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-i18n]").forEach(el=>el.textContent=t(el.dataset.i18n));
+  document.getElementById("ruBtn").classList.toggle("active",lang==="ru");
+  document.getElementById("enBtn").classList.toggle("active",lang==="en");
+  renderCart(); updateCheckout();
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>el.placeholder=t(el.dataset.i18nPlaceholder));
+}
+function addToCart(id,name,price){
+  const found=cart.find(x=>x.id===id);
+  if(found) found.qty++;
+  else cart.push({id,name,price,qty:1});
+  save(); renderCart(); toast(name+" — "+t("added"));
+}
+function changeQty(id,delta){
+  const x=cart.find(i=>i.id===id); if(!x)return;
+  x.qty+=delta;
+  if(x.qty<=0) cart=cart.filter(i=>i.id!==id);
+  save(); renderCart(); updateCheckout();
+}
+function removeItem(id){cart=cart.filter(i=>i.id!==id);save();renderCart();updateCheckout()}
+function cartTotal(){return cart.reduce((s,i)=>s+i.price*i.qty,0)}
+function cartCount(){return cart.reduce((s,i)=>s+i.qty,0)}
+
+function renderCart(){
+  document.getElementById("count").textContent=cartCount();
+  const box=document.getElementById("cartItems");
+  if(!cart.length){
+    box.innerHTML='<div class="empty">'+t("empty")+'</div>';
+  }else{
+    box.innerHTML=cart.map(i=>`
+      <div class="cart-item">
+        <div class="cart-thumb"><div style="width:100%;height:100%;background:${i.id==="puma"?"radial-gradient(circle,#ff4ac0,#9a155f)":"linear-gradient(135deg,#efff8b,#d8ea64)"}"></div></div>
+        <div>
+          <div class="item-name">${escapeHtml(i.name)}</div>
+          <div class="item-price">${money(i.price)}</div>
+          <div class="qty">
+            <button onclick="changeQty('${i.id}',-1)">−</button><b>${i.qty}</b><button onclick="changeQty('${i.id}',1)">+</button>
+          </div>
+          <button class="remove" onclick="removeItem('${i.id}')">${t("remove")}</button>
+        </div>
+        <div class="item-total">${money(i.price*i.qty)}</div>
+      </div>`).join("");
+  }
+  document.getElementById("total").textContent=money(cartTotal());
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function openCart(){document.getElementById("cartOverlay").classList.add("open")}
+function closeOverlay(id){document.getElementById(id).classList.remove("open")}
+function overlayClose(e,id){if(e.target.id===id)closeOverlay(id)}
+
+function startCheckout(){
+  if(!cart.length){toast(t("emptyAlert"));return}
+  updateCheckout(); closeOverlay("cartOverlay"); document.getElementById("checkoutOverlay").classList.add("open");
+}
+function updateCheckout(){
+  document.getElementById("checkoutCount").textContent=cartCount();
+  document.getElementById("checkoutTotal").textContent=money(cartTotal());
+}
+function toast(msg){
+  const x=document.getElementById("toast");x.textContent=msg;x.classList.add("show");
+  clearTimeout(window.__toast);window.__toast=setTimeout(()=>x.classList.remove("show"),1800);
+}
+
+document.getElementById("checkoutForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  if(!cart.length){toast(t("emptyAlert"));return}
+
+  const name=document.getElementById("customerName").value.trim();
+  const tg=document.getElementById("customerTelegram").value.trim();
+  const city=document.getElementById("customerCity").value.trim();
+  const delivery=document.getElementById("deliveryMethod").value;
+  const comment=document.getElementById("comment").value.trim();
+  const orderNo="MG-"+Date.now().toString().slice(-7);
+
+  let msg=`🛍️ MAGROVSKIJ SHOP\n`;
+  msg+=`━━━━━━━━━━━━━━\n`;
+  msg+=`📦 Заказ: ${orderNo}\n`;
+  msg+=`👤 Клиент: ${name}\n`;
+  msg+=`💬 Telegram: ${tg}\n`;
+  msg+=`📍 Город: ${city}\n`;
+  msg+=`🚚 Доставка: ${delivery}\n\n`;
+  msg+=`🛒 ТОВАРЫ\n`;
+  cart.forEach((i,n)=>{
+    msg+=`\n${n+1}. ${i.name}\n`;
+    msg+=`   × ${i.qty}  •  ${money(i.price*i.qty)}\n`;
+  });
+  msg+=`\n━━━━━━━━━━━━━━\n`;
+  msg+=`💰 ИТОГО: ${money(cartTotal())}\n`;
+  if(comment) msg+=`\n📝 Комментарий:\n${comment}`;
+  msg+=`\n\nСпасибо! Жду подтверждение заказа.`;
+
+  const url=`https://t.me/${TELEGRAM_USERNAME}?text=${encodeURIComponent(msg)}`;
+  window.open(url,"_blank","noopener");
+
+  /* Сохраняем заказ в браузере, но не очищаем корзину:
+     клиент сможет вернуться и проверить заказ. */
+});
+
+document.getElementById("year").textContent=new Date().getFullYear();
+
+function initLinks(){
+  const href=KICK_USERNAME && KICK_USERNAME!=="YOUR_KICK_USERNAME"
+    ? `https://kick.com/${encodeURIComponent(KICK_USERNAME)}`
+    : "https://kick.com/";
+  document.getElementById("kickTop").href=href;
+  document.getElementById("kickMain").href=href;
+}
+setLang(lang); initLinks();
+</script>
+</body>
+</html>
