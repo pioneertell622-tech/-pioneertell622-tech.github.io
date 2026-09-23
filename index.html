@@ -190,6 +190,7 @@ textarea{min-height:90px;resize:vertical}
       <ul>
         <li data-i18n="cdek">СДЭК</li>
         <li data-i18n="post">Почта России</li>
+         <li data-i18n="post">5Post</li>
         <li data-i18n="shipTime">Ориентировочно 7–14 дней</li>
       </ul>
     </div>
@@ -261,7 +262,7 @@ textarea{min-height:90px;resize:vertical}
    поменяй только эти две строки.
 =========================================== */
 const TELEGRAM_USERNAME = "magrovskijshop";
-const KICK_USERNAME = "YOUR_KICK_USERNAME";
+const KICK_USERNAME = "magrovskij";
 
 const products = {
   jordan:{name:"Jordan 4 Vintage",price:13000},
@@ -404,7 +405,7 @@ document.getElementById("checkoutForm").addEventListener("submit",e=>{
 document.getElementById("year").textContent=new Date().getFullYear();
 
 function initLinks(){
-  const href=KICK_USERNAME && KICK_USERNAME!=="YOUR_KICK_USERNAME"
+  const href=KICK_USERNAME && KICK_USERNAME!=="magrovskij"
     ? `https://kick.com/${encodeURIComponent(KICK_USERNAME)}`
     : "https://kick.com/";
   document.getElementById("kickTop").href=href;
