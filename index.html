@@ -1,5 +1,11 @@
 <!doctype html>
 <html lang="ru">
+  <button
+    class="order-button"
+    onclick="orderCart()"
+    >
+    Офрмить заказ
+    </button
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -49,4 +55,268 @@ footer{border-top:1px solid var(--line);padding:30px 0 50px;color:var(--muted);t
 </div></section>
 </main>
 <footer><div class="wrap">© MAGROVSKIJ SHOP • @magrovskijshop</div></footer>
-</body></html>
+<!-- ФОРМА ОФОРМЛЕНИЯ ЗАКАЗА -->
+
+<div class="checkout-overlay" id="checkoutOverlay">
+
+    <div class="checkout">
+
+        <button
+            class="checkout-close"
+            onclick="closeCheckout()"
+        >
+            ×
+        </button>
+
+        <h2>Оформление заказа</h2>
+
+        <p class="checkout-subtitle">
+            Заполните данные — после этого откроется Telegram
+            с готовым сообщением для заказа.
+        </p>
+
+        <form id="checkoutForm">
+
+            <label>
+                Ваше имя
+                <input
+                    type="text"
+                    id="customerName"
+                    placeholder="Например, Максим"
+                    required
+                >
+            </label>
+
+            <label>
+                Telegram
+                <input
+                    type="text"
+                    id="customerTelegram"
+                    placeholder="@magrovskijshoop"
+                    required
+                >
+            </label>
+
+            <label>
+                Город
+                <input
+                    type="text"
+                    id="customerCity"
+                    placeholder="Москва"
+                    required
+                >
+            </label>
+
+            <label>
+                Способ доставки
+
+                <select id="deliveryMethod">
+
+                    <option value="СДЭК">
+                        СДЭК
+                    </option>
+
+                    <option value="Почта России">
+                        Почта России
+                    </option>
+
+                </select>
+
+            </label>
+
+            <label>
+                Комментарий
+
+                <textarea
+                    id="customerComment"
+                    placeholder="Размер, цвет и другие пожелания..."
+                ></textarea>
+
+            </label>
+
+            <div class="checkout-summary">
+
+                <div>
+                    Товаров:
+                    <b id="checkoutCount">0</b>
+                </div>
+
+                <div>
+                    Итого:
+                    <strong id="checkoutTotal">
+                        0 ₽
+                    </strong>
+                </div>
+
+            </div>
+
+            <button
+                type="submit"
+                class="checkout-submit"
+            >
+                Перейти в Telegram →
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+  /* =========================
+   CHECKOUT
+========================= */
+  .checkout-overlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.78);
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 2000;
+}
+
+.checkout-overlay.active {
+    display: flex;
+}
+
+.checkout {
+    position: relative;
+
+    width: min(480px, 100%);
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: #292929;
+
+    border: 1px solid #777;
+    border-radius: 22px;
+
+    padding: 28px;
+}
+
+.checkout h2 {
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+.checkout-subtitle {
+    color: #aaa;
+    font-size: 13px;
+    line-height: 1.5;
+
+    margin-bottom: 22px;
+}
+
+.checkout-close {
+    position: absolute;
+
+    right: 17px;
+    top: 12px;
+
+    background: none;
+    border: none;
+
+    color: white;
+
+    font-size: 30px;
+
+    cursor: pointer;
+}
+
+.checkout form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.checkout label {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+
+    color: #ddd;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.checkout input,
+.checkout select,
+.checkout textarea {
+    width: 100%;
+
+    border: 1px solid #666;
+    border-radius: 10px;
+
+    background: #202020;
+    color: white;
+
+    padding: 12px;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+}
+
+.checkout input:focus,
+.checkout select:focus,
+.checkout textarea:focus {
+    border-color: #eaff72;
+}
+
+.checkout textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.checkout-summary {
+    margin-top: 5px;
+
+    padding: 15px;
+
+    background: #202020;
+
+    border-radius: 12px;
+
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+
+    font-size: 14px;
+}
+
+.checkout-summary strong {
+    color: #eaff72;
+}
+
+.checkout-submit {
+    border: none;
+    border-radius: 12px;
+
+    padding: 14px;
+
+    background: #eaff72;
+    color: #222;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.checkout-submit:hover {
+    background: #ff38b8;
+    color: white;
+}
+</div>
+  
